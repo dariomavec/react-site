@@ -1,68 +1,32 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react';
-import logo from './logo.svg';
-import './App.css';
+import mainpic from '../splash-crop.jpg';
+import { Container, Row, Col } from 'reactstrap';
 
-class Chart extends Component {
+class Welcome extends Component {
   render() {
     return (
-		<div className="col-lg-3">
-			<div className="card mb-3">
-				<div className="card-header">
-					<i className="fa fa-chart-area"></i> Wins Over Time
-				</div>
-				<div className="card-body">
-					{this.props.value}
-				</div>
-				<div className="card-footer small text-muted">Updated ???</div>
-			</div>
-		</div>
+	<div className="Welcome session">
+     <Container>
+		<Row>
+			<Col>
+				<img src={mainpic} className="main-pic"></img>
+			</Col>
+			<Col>
+			<h1 className="welcome-intro">Hi! This is me - a <strong>data scientist</strong>, <strong>explorer</strong> & <strong>highly evolved ape</strong> seeking to fulfil my potential
+				<br/>
+				<br/>
+				  <a href="https://linkedin.com/in/dario-mavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin i-hov" aria-hidden="true"/></a>  
+				  <a href="https://github.com/dariomavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-github-square i-hov" aria-hidden="true"/></a>  
+				  <a href="mailto:dario.mavec@gmail.com?Subject=Greetings!" target="_top"><i className="fas fa-envelope-square i-hov" aria-hidden="true"/></a>
+				<br/>
+				<a href="https://drive.google.com/file/d/1HmM6t2huwO3T7KQ1lEn3Yd7UrZeIow5m/view?usp=sharing" target="_blank" rel="noopener noreferrer"><button className="button resume-button"><i className="far fa-file-pdf" aria-hidden="true"/> CV</button></a>
+			</h1>
+			</Col>
+		</Row>
+	</Container>
+	</div>
     );
   }
 }
 
-class Dashboard extends Component {
-	renderChart(i) {
-		return <Chart value={i}/>;
-	}
-	
-	render() {
-		return(
-		<div className="row">
-			{this.renderChart(0)}
-			{this.renderChart(1)}
-			{this.renderChart(2)}
-			{this.renderChart(3)}
-		</div>
-		);
-	}
-}
-
-class Header extends Component {
-	render() {
-		return(
-		<div className="App">
-				<header className="App-header">
-				<h1 className="App-title">League Tracker</h1>
-			</header>
-		</div>
-	  )
-	}
-	
-}
-
-
-class App extends Component {
-	render() {
-		return(
-		<div>
-			<Header />
-			<Dashboard />	
-		</div>
-	  )
-	}
-	
-}
-
-export default App;
-
+export default Welcome;

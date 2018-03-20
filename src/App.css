@@ -2,17 +2,318 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #222;
-  height: 80px;
+
+h1 {
+  font-family: "Cormorant Garamond", sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+h2 {
+  font-family: "Proza Libre", sans-serif;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+h3 {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 100;
+}
+
+p {
+  font-family: "Proza Libre", sans-serif;
+  font-size: 18px;
+}
+
+.section {
+  padding: 50px;
+  background-color: #FFF;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  position: relative;
+  width: 40%;
+  margin: 10px;
+}
+
+.thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  opacity: .9;
+  overflow: hidden;
+  width: 100%;
+  height:0;
+  transition: .5s ease;
+}
+
+.item:hover .overlay {
+  bottom: 0;
+  height: 100%;
+}
+
+.item:hover .thumb {
+  width: 100%;
+  height: auto;
+}
+
+.text {
+  white-space: nowrap;
+  color: black;
+  font-size: 25px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.text a {
+  color: #00c8c8;
+  text-decoration: none;
+}
+
+.heading {
+  /*margin-top: 50px;*/
+}
+
+.Welcome {
+  display: flex;
+  /*background-image: url('./splash-stylised.jpg');
+  background-size: 2000px;
+  background-repeat: no-repeat;
+  background-position: left;*/
+  background-color: #FFF;
+  color: black;
+  height: 75vh;
+  padding-left: 75px;
+  padding-right: 75px;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 30% 70%;
+}
+
+.Welcome .i-hov {
+  color: black;
+  margin: 10px;
+  display: inline-block;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.Welcome .i-hov:hover {
+  color: #8e44ad;
+  display: inline-block;
+}
+
+.Welcome button {
+  font-family: "Cormorant Garamond", sans-serif;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 15px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 10px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.Welcome button:hover {
+    background-color: #8e44ad;
+    border: 2px solid;
+    border-color: #000000;
+    color: white;
+}
+
+.down-arrow {
+  background-color: grey;
+}
+
+.main-pic {
+  border-radius: 50%;
+  width: 22vw;
   padding: 20px;
+}
+
+.welcome-intro {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 100;
+}
+
+.welcome-intro strong {
+  font-weight: 900;
+  color: white;
+  background-color: #8e44ad;
+}
+
+.welcome-box {
+	background-color: black;
+}
+
+.Projects {
+  background-color: #FFF;
+  
+}
+
+.Projects h2 {
+  font-size: 50px;
+  font-family: "Cormorant Garamond", sans-serif;
+  font-weight: 100;
+}
+
+.Separator {
+  background-color: #FFF;
+}
+
+.About {
+  background-color: #FFF;
+  background-repeat: no-repeat;
+  background-size: 1500px;
+  background-position: bottom;
+  height: 700px;
+}
+
+.about-intro {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 100;
+  color: white;
+  font-size: 40px;
+}
+
+.about-intro strong {
+  font-weight: 900;
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+.about-item a {
+  color: white;
+  text-decoration: none;
 }
 
-.App-intro {
-  font-size: large;
+.about-item {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 200;
+  font-size: 20px;
+  color: white;
+  padding: 10px 40px;
+}
+
+.about-item strong {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 800;
+  color: white;
+}
+
+.About span {
+  text-decoration: underline;
+}
+
+
+.NavBar {
+  list-style-type: none;
+  width: 100%;
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+  /*border: 1px solid #e7e7e7;*/
+  background-color: #f1f1f1;
+  z-index: 500;
+}
+
+.nav-item {
+  font-family: "Proza Libre", sans-serif;
+  font-weight: 300;
+  float: right;
+}
+
+.nav-last {
+  margin-right: 60px;
+}
+
+.nav-name {
+  font-family: "Cormorant Garamond";
+  font-weight: 100;
+  font-size: 36px;
+  display: block;
+  margin-left: 60px;
+  color: black;
+  text-align: center;
+  padding: 7px 8px;
+  text-decoration: none;
+  float: left;
+}
+
+.nav-link {
+  display: block;
+  color: #666;
+  text-align: center;
+  padding: 20px 20px;
+  margin: 14px 0px;
+  text-decoration: none;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.nav-link:hover:not(.active) {
+  background-color: #fffffc;
+  color: #16223C;
+}
+
+.nav-link.active {
+  color: white;
+  background-color: #4CAF50;
+}
+
+
+.Footer {
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  z-index: 500;
+  background: #2c3e50;
+  display: grid;
+  grid-template-columns: 10% 30% 50% 10%;
+  color: white;
+}
+
+
+@include keyframes(bounce) {
+	0%, 20%, 50%, 80%, 100% {
+    @include transform(translateY(0));
+  }
+	40% {
+    @include transform(translateY(-30px));
+  }
+	60% {
+    @include transform(translateY(-15px));
+  }
+}
+
+.bounce {
+  @include animation(bounce 2s infinite);
 }
