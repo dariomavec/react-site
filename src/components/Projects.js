@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Jumbotron, Button } from 'reactstrap';
 
-class Projects extends Component {
+export default class Projects extends Component {
   render() {
     return (
       <div className="Projects section">
@@ -19,7 +19,7 @@ class Projects extends Component {
 						<hr className="my-2" />
 						<p>Dashboard for discovering gaming insights. Full stack development project scraping data from Riot API, munging data, running models and presenting results.</p>
 						<p className="lead">
-						  <Button color="primary">Explore</Button>
+						  <Button color="primary" href="/tracker">Explore</Button>
 						</p>
 					  </Jumbotron>
 				</Col>
@@ -29,5 +29,3 @@ class Projects extends Component {
     );
   }
 }
-
-export default Projects;
