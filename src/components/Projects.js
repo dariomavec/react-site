@@ -14,11 +14,11 @@ export default class Projects extends Component {
 			<Row>
 				<Col>
 					 <Jumbotron>
-						<h1 className="display-3">League Tracker</h1>
-						<h2>How does my tribe match up on the Rift?</h2>
+						<h2>League Tracker</h2>
+						<h3>How does my tribe match up on the Rift?</h3>
 						<hr className="my-2" />
 						<p>Dashboard for discovering gaming insights. Full stack development project scraping data from Riot API, munging data, running models and presenting results.</p>
-						<p className="lead">
+						<p>
 						  <Button color="primary" href="/tracker">Explore</Button>
 						</p>
 					  </Jumbotron>

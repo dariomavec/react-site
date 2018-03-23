@@ -126,40 +126,6 @@ p {
   background-color: #FFF;
 }
 
-.about-intro {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 100;
-  color: white;
-  font-size: 40px;
-}
-
-.about-intro strong {
-  font-weight: 900;
-  color: white;
-}
-
-.about-item a {
-  color: white;
-  text-decoration: none;
-}
-
-.about-item {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 200;
-  font-size: 20px;
-  color: white;
-  padding: 10px 40px;
-}
-
-.about-item strong {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 800;
-  color: white;
-}
-
-.About span {
-  text-decoration: underline;
-}
 
 .nav-item {
   font-family: "Montserrat", sans-serif;
