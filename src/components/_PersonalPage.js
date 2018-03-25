@@ -11,29 +11,25 @@ export default class PersonalPage extends Component {
 		return(
 		<div className="App">		
 			<NavBar />
-			<Container>				
-				<Row>
-					<Welcome />					
-				</Row>
+			<Container>			
+				<Welcome />	
+				
 				<Row id="about">
 					<Col>
 						<h1><a href="#about"><i className="fas fa-arrow-circle-down" aria-hidden="true"/> </a></h1>
 					</Col>
 				</Row>
-				<Row>
-					<About />
-				</Row>
+				
+				<About />
+				
 				<Row id="projects">
 					<Col>
 						<h1><a href="#projects"><i className="fas fa-arrow-circle-down" aria-hidden="true"/> </a></h1>
 					</Col>
 				</Row>
-				<Row>
-					<Projects />
-				</Row>
-				<Row className="section" id="contact">
-					<Footer />
-				</Row>
+				
+				<Projects />
+				<Footer />
 			</Container>
 		</div>
 	  )

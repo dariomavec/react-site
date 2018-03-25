@@ -13,10 +13,10 @@ export default class Footer extends Component {
 				</Col>
 			</Row>			
 			<Row className="align-items-center">
-				<Col className="col-8">
+				<Col className="col-12 col-md-6">
 					<img src={footerSplash} className="footer-pic" alt="Footer"></img>
 				</Col>
-				<Col className="col-4">
+				<Col className="col-12 col-md-6">
 					<h1>Questions?<br/>Hit me up!</h1>
 					<h3>
 					  <a href="https://linkedin.com/in/dario-mavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin i-hov"/></a>  

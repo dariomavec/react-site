@@ -20,7 +20,7 @@ export default class Welcome extends Component {
 			<h1 className="welcome-intro">Hi! This is <strong>me</strong>.
 				<br/>	
 				<br/>	
-				A <strong>data scientist</strong>, <strong>explorer</strong> & <strong>highly evolved ape</strong> with 490,560 hours to burn.
+				TEST A <strong>data scientist</strong>, <strong>explorer</strong> & <strong>highly evolved ape</strong> with 490,560 hours to burn.
 				<br/>
 				<br/>
 				<strong>Let's chat!</strong>
