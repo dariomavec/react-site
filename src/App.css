@@ -20,6 +20,19 @@
   font-weight: 100;
 }
 
+.App .i-hov {
+  color: black;
+  margin: 10px;
+  display: inline-block;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.App .i-hov:hover {
+  color: #1dd1a1;
+  display: inline-block;
+}
+
 p {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
@@ -36,19 +49,6 @@ p {
   align-items: center;
   justify-content: center;
   padding: 0px 0px;
-}
-
-.Welcome .i-hov {
-  color: black;
-  margin: 10px;
-  display: inline-block;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-}
-
-.Welcome .i-hov:hover {
-  color: #1dd1a1;
-  display: inline-block;
 }
 
 .Welcome button {
@@ -159,13 +159,7 @@ p {
   color: black;
 }
 
-.Footer .i-hov {
-  color: black;
-  margin: 10px;
-  display: inline-block;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-}
+
 
 .Footer .i-hov:hover {
   color: #1dd1a1;

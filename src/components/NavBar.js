@@ -35,10 +35,7 @@ export default class NavBar extends React.Component {
               </NavItem>
               <NavItem>
                 <NavLink href="#projects">Projects</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#contact">Contact</NavLink>
-              </NavItem>              
+              </NavItem>           
             </Nav>
           </Collapse>
         </Navbar>
