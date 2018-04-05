@@ -8,29 +8,31 @@ export default class PieChart extends Component {
 	}
 	
 	render() {	
+	const PALETTE = [
+		'#2c3e50',
+		'#16a085',
+		'#27ae60'
+	];
+	let key = Array.from(this.props.data.y.keys()); // Array of the number of y classes
+	let colors = key.map(i => PALETTE[i % PALETTE.length]); // Palette split between the classes
+	
 	const data = {
-	labels: [
-		'Red',
-		'Green',
-		'Yellow'
-	],
-	datasets: [{
-		data: [300, 50, 100],
-		backgroundColor: [
-		'#FF6384',
-		'#36A2EB',
-		'#FFCE56'
-		],
-		hoverBackgroundColor: [
-		'#FF6384',
-		'#36A2EB',
-		'#FFCE56'
-		]
-	}]
-};
-
+		labels: this.props.data.x,
+		datasets: [{
+			data: this.props.data.y,
+			backgroundColor: colors,
+			hoverBackgroundColor: colors
+		}]
+	};
+	
+	const options = {
+		legend: {
+			reverse: true
+		}
+	}
+	
     return (
-	  <Pie data={data}/>
+	  <Pie data={data} options={options}/>
     );
   }
 };
