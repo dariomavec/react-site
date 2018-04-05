@@ -5,12 +5,10 @@ import './App.css'
 import { Switch, Route } from 'react-router-dom';
 
 const App = () => (
-	<div>
 	<Switch>
       <Route exact path='/' component={Me}/>
       <Route exact path='/strife' component={Strife}/>
     </Switch>
-	</div>
 );
 
 export default App;
