@@ -3,16 +3,26 @@
   margin-top: 40px;
 }
 
+a:link, a:visited {
+    color: black;
+	font-weight: 600;
+}
+
+a:hover, a:active {
+    color: red;
+	text-decoration: none;
+}
+
 .App h1 {
-  font-family: "Space Mono";
-  font-size: 30px;
+  font-family: "Montserrat";
+  font-size: 50px;
   font-weight: 900;
 }
 
 .App h2 {
   font-family: "Montserrat", sans-serif;
-  font-size: 20px;
-  font-weight: 100;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .App h3 {
@@ -99,8 +109,8 @@ p {
 
 .welcome-intro strong {
   font-weight: 900;
-  color: white;
-  background-color: #1dd1a1;
+  color: #1dd1a1;
+  #background-color: #1dd1a1;
 }
 
 .welcome-box {
@@ -112,12 +122,6 @@ p {
   
 }
 
-.Projects h2 {
-  font-size: 50px;
-  font-family: "Space Mono";
-  font-weight: 100;
-}
-
 .Separator {
   background-color: #FFF;
 }
@@ -126,40 +130,43 @@ p {
   background-color: #FFF;
 }
 
-
-.nav-item {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 900;
-  float: right;
-}
-
 .nav-name {
-  padding: 0px 45px;
+  padding: 0px 40px;
   align-items: center;
 }
 
-.nav-name h1{
+.nav-name h1 {
   font-family: "Montserrat";
   font-weight: 100;
+  font-size: 30px;
   padding: 5px 0px;
 }
 
-.nav-link {
-  margin: 0px 0px;
-  -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
+.nav-item {
+  align-items: center;
+  margin: 0px 5px;
 }
 
-.nav-link:hover:not(.active) {
-  background-color: grey;
+.nav-item h1 {
+  font-family: "Montserrat";
+  font-weight: 900;
+  font-size: 18px;
 }
+
+/* .nav-link { */
+  /* margin: 0px 5px; */
+  /* -webkit-transition-duration: 0.4s; */
+  /* transition-duration: 0.4s; */
+/* } */
+
+/* .nav-link:hover:not(.active) { */
+  /* background-color: grey; */
+/* } */
 
 .Footer {
   background: #f5f6fa;
   color: black;
 }
-
-
 
 .Footer .i-hov:hover {
   color: #1dd1a1;
