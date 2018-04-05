@@ -17,20 +17,8 @@ export default class Me extends Component {
 				<Spacer />
 				<Welcome />	
 				<Spacer />
-				<Row id="about">
-					<Col>
-						<h1><a href="#about"><i className="fas fa-arrow-circle-down i-hov" aria-hidden="true"/> </a></h1>
-					</Col>
-				</Row>
-				<Spacer />
 				<About />
 				<Spacer />
-				<Row id="projects">
-					<Col>
-						<h1><a href="#projects"><i className="fas fa-arrow-circle-down i-hov" aria-hidden="true"/> </a></h1>
-					</Col>
-				</Row>
-				
 				<Projects />
 				<Footer />
 			</Container>

@@ -15,6 +15,7 @@ export default class PlayerDropdown extends React.Component {
 
   handlePlayerChange(e) {
     this.props.onDropdownChange(e.target.textContent);
+	console.log(this.props.name);
   }
   
   toggle() {

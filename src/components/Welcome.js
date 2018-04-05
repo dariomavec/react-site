@@ -12,7 +12,7 @@ export default class Welcome extends Component {
 				<img src={mainpic} className="main-pic" alt="Main Splash"></img>
 			</Col>
 			<Col className="col-12 col-md-7">
-			<h1 className="welcome-intro">Hi! This is <strong>me</strong>.
+			<h2 className="welcome-intro">Hi! This is <strong>me</strong>.
 				<br/>	
 				<br/>	
 				A <strong>data scientist</strong>, <strong>explorer</strong> & <strong>highly evolved ape</strong> with 490,560 hours to burn.
@@ -25,7 +25,7 @@ export default class Welcome extends Component {
 				  <a href="https://linkedin.com/in/dario-mavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin i-hov"/></a>  
 				  <a href="https://github.com/dariomavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-github-square i-hov"/></a>  
 				  <a href="mailto:dario.mavec@gmail.com?Subject=Greetings!" target="_top"><i className="fas fa-envelope-square i-hov"/></a>
-				</h1>
+				</h2>
 			</Col>
 		</Row>
 	</Container>

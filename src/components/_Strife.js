@@ -12,7 +12,7 @@ export default class Strife extends Component {
 		  isLoaded: false,
 		  items: [],
 		  playerName: 'Players',
-		  playerData: null
+		  playerData: []
 		};
 		this.handlePlayerChange = this.handlePlayerChange.bind(this);
 	}
@@ -22,11 +22,11 @@ export default class Strife extends Component {
 		  playerName: playerName,
 		  playerData: this.state.items.filter(item => item.player_tidy === playerName) 
 		});
-		console.log(this.state.playerData);
 	}
 	
 	componentDidMount() {
-		fetch("http://localhost:8080/players.json")
+		fetch("https://mavec.pythonanywhere.com/players.json")
+		//fetch("http://localhost:8080/players.json")
 		  .then(res => res.json())
 		  .then(
 			(result) => {
@@ -45,16 +45,43 @@ export default class Strife extends Component {
 			  });
 			}
 		  )
+ 
 	  }
 
 	render() {
 		const { error, isLoaded, items } = this.state;
+		var rankedData, rankedTitle;
 		if (error) {
 		  return <div>Error: {error.message}</div>;
 		} else if (!isLoaded) {
 		  return <div>Loading...</div>;
 		} else {
-		  const data = {
+		  const barData = {
+			  legend: "Win Rate",
+			  x: items.map(item => item.player_tidy),
+			  y: items.map(item => item.pct_win) 
+			  };
+			  
+	      if (this.state.playerName === 'Players') {			
+			  rankedData = {
+				  legend: "Ranked Games",
+				  x: ['Ranked', 'Unranked'],
+				  y: [items.map(item => item.n_ranked).reduce((a, b) => a + b, 0), items.map(item => item.n_unranked).reduce((a, b) => a + b, 0)]
+				  }; 
+			  rankedTitle = "Ranked Games (Overall)";
+		  }
+		  else {
+			  console.log(this.state.playerData);
+			  
+			  rankedData = {
+				  legend: "Ranked Games",
+				  x: ['Ranked', 'Unranked'],
+				  y: [this.state.playerData[0].n_ranked, this.state.playerData[0].n_unranked]
+				  };
+			  rankedTitle = "Ranked Games (" + this.state.playerName + ")"
+		  }
+			  
+		  const lineData = {
 			  legend: "Win Rate",
 			  x: items.map(item => item.player_tidy),
 			  y: items.map(item => item.pct_win) 
@@ -77,12 +104,27 @@ export default class Strife extends Component {
 		  </Row>
 		  <Row>
 			<Col>
-				<ChartCard title="Dashboard" data={data}/>
+			 <br/>
 			</Col>
 		  </Row>
 		  <Row>
 			<Col>
-				<ChartCard title="Dashboard" data={data}/>
+				<br/>
+			</Col>
+			<Col>
+				<ChartCard title="Player Win Rate" data={barData} type='bar'/>
+			</Col>
+		  </Row>
+		  <Row>
+			<Col>
+				<br/>
+			</Col>
+		  </Row>
+		  <Row>
+		  	<Col>
+				<ChartCard title={rankedTitle} data={rankedData} type='pie'/>
+			</Col>
+			<Col>
 			</Col>
 		  </Row>
 		  </Container>
