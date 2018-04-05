@@ -16,10 +16,13 @@ export default class Me extends Component {
 				<Spacer />
 				<Spacer />
 				<Welcome />	
-				<Spacer />
+				<Spacer id="about"/>
+				<Spacer/>
 				<About />
+				<Spacer id="projects"/>
 				<Spacer />
 				<Projects />
+				<Spacer />
 				<Footer />
 			</Container>
 		</div>
