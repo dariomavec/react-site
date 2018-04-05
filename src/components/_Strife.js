@@ -50,8 +50,8 @@ export default class Strife extends Component {
 		  playerData: this.state.items.filter(item => item.player_tidy === playerName)
 		});
 				
-		//fetch("https://mavec.pythonanywhere.com/players.json")
-		fetch("http://localhost:8080/games.json/?player__player_name=" + playerName.toLowerCase())
+		fetch("https://mavec.pythonanywhere.com/games.json/?player__player_name=" + playerName.toLowerCase())
+		//fetch("http://localhost:8080/games.json/?player__player_name=" + playerName.toLowerCase())
 		  .then(res => res.json())
 		  .then(
 			(result) => {
