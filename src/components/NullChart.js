@@ -12,8 +12,9 @@ export default class NullChart extends Component {
     return (
 	  <Container>
 	   <Row>
-		<Col col='gray'>
-			<br/>
+		<Col className='block'>
+			<br/><br/><br/>
+			<h1>Select a player</h1>
 		</Col>	   
 	   </Row>	  
 	  </Container>

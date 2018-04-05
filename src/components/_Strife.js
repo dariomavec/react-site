@@ -2,6 +2,31 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import ChartCard from './ChartCard';
 import PlayerDropdown from './PlayerDropdown';
+import _ from 'lodash';
+
+
+function sum(numbers) {
+  return _.reduce(numbers, (a, b) => a + b, 0);
+}
+
+function average(numbers) {
+  return sum(numbers) / (numbers.length || 1);
+}
+
+function make_window(before, after) {
+  return function (_number, index, array) {
+    const start = Math.max(0, index - before);
+    const end   = Math.min(array.length, index + after + 1);
+    return _.slice(array, start, end);
+  }
+}
+
+function moving_average(numbers) {
+  return _.chain(numbers)
+          .map(make_window(10, 0))
+          .map(average)
+          .value();
+}
 
 
 export default class Strife extends Component {
@@ -12,7 +37,9 @@ export default class Strife extends Component {
 		  isLoaded: false,
 		  items: [],
 		  playerName: 'Players',
-		  playerData: []
+		  playerData: [],
+		  games: [],
+		  gameLoaded: false
 		};
 		this.handlePlayerChange = this.handlePlayerChange.bind(this);
 	}
@@ -20,8 +47,29 @@ export default class Strife extends Component {
 	handlePlayerChange(playerName) {
 		this.setState({
 		  playerName: playerName,
-		  playerData: this.state.items.filter(item => item.player_tidy === playerName) 
+		  playerData: this.state.items.filter(item => item.player_tidy === playerName)
 		});
+				
+		//fetch("https://mavec.pythonanywhere.com/players.json")
+		fetch("http://localhost:8080/games.json/?player__player_name=" + playerName.toLowerCase())
+		  .then(res => res.json())
+		  .then(
+			(result) => {
+			  this.setState({
+				gameLoaded: true,
+				games: result
+			  });
+			},
+			// Note: it's important to handle errors here
+			// instead of a catch() block so that we don't swallow
+			// exceptions from actual bugs in components.
+			(error) => {
+			  this.setState({
+				gameLoaded: true,
+				error
+			  });
+			}
+		  )
 	}
 	
 	componentDidMount() {
@@ -49,20 +97,20 @@ export default class Strife extends Component {
 	  }
 
 	render() {
-		const { error, isLoaded, items } = this.state;
-		var rankedData, rankedTitle;
+		const { error, isLoaded, items, playerName, playerData, games, gameLoaded } = this.state;
+		var rankedData, rankedTitle, winRateData, gameData, gameGraph;
 		if (error) {
 		  return <div>Error: {error.message}</div>;
 		} else if (!isLoaded) {
 		  return <div>Loading...</div>;
 		} else {
-		  const barData = {
+		  const winRateData = {
 			  legend: "Win Rate",
 			  x: items.map(item => item.player_tidy),
 			  y: items.map(item => item.pct_win) 
 			  };
 			  
-	      if (this.state.playerName === 'Players') {			
+	      if (playerName === 'Players') {			
 			  rankedData = {
 				  legend: "Ranked Games",
 				  x: ['Ranked', 'Unranked'],
@@ -71,22 +119,29 @@ export default class Strife extends Component {
 			  rankedTitle = "Ranked Games (Overall)";
 		  }
 		  else {
-			  console.log(this.state.playerData);
-			  
 			  rankedData = {
 				  legend: "Ranked Games",
 				  x: ['Ranked', 'Unranked'],
-				  y: [this.state.playerData[0].n_ranked, this.state.playerData[0].n_unranked]
+				  y: [playerData[0].n_ranked, playerData[0].n_unranked]
 				  };
-			  rankedTitle = "Ranked Games (" + this.state.playerName + ")"
+			  rankedTitle = "Ranked Games (" + playerName + ")"
 		  }
+		  
+		  // Game data
+		  if (gameLoaded) {
+			  gameData = {
+				  legend: "Win Rate",
+				  x: games.map((item, index) => index),
+				  y: moving_average(games.map(item => 100 * item.n_wins))
+				  };
 			  
-		  const lineData = {
-			  legend: "Win Rate",
-			  x: items.map(item => item.player_tidy),
-			  y: items.map(item => item.pct_win) 
-			  };
-			
+			  gameGraph = 'line';
+		  }
+		  else {
+			  gameData = {};
+			  gameGraph = null;
+		  }
+			  			
 		  return (
 		  <Container className="flex-container">
 		  <Row>
@@ -108,23 +163,23 @@ export default class Strife extends Component {
 			</Col>
 		  </Row>
 		  <Row>
-			<Col>
-				<br/>
+			<Col className='col-12 col-md-6'>
+				<ChartCard title="Game Wins" data={gameData} type={gameGraph}/>
 			</Col>
-			<Col>
-				<ChartCard title="Player Win Rate" data={barData} type='bar'/>
-			</Col>
-		  </Row>
-		  <Row>
-			<Col>
-				<br/>
+			<Col className='col-12 col-md-6'>
+				<ChartCard title="Player Win Rate" data={winRateData} type='bar'/>
 			</Col>
 		  </Row>
 		  <Row>
-		  	<Col>
+			<Col>
+				<br/>
+			</Col>
+		  </Row>
+		  <Row>
+		  	<Col className='col-12 col-md-6'>
 				<ChartCard title={rankedTitle} data={rankedData} type='pie'/>
 			</Col>
-			<Col>
+			<Col className='col-12 col-md-6'>
 			</Col>
 		  </Row>
 		  </Container>

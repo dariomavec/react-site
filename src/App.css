@@ -177,3 +177,16 @@ p {
   width: 50vh;
   padding: 10px;
 }
+
+.block {
+  height: 250px;
+  background-color: grey;
+  color: white;
+} 
+
+.block h1 {
+  font-family: "Montserrat";
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+}

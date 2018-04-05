@@ -9,13 +9,13 @@ export default class PlayerDropdown extends React.Component {
     this.state = {
       dropdownOpen: false
     };
-	console.log(this.props.name);
+	// console.log(this.props.name);
 	this.handlePlayerChange = this.handlePlayerChange.bind(this);
   }
 
   handlePlayerChange(e) {
     this.props.onDropdownChange(e.target.textContent);
-	console.log(this.props.name);
+	// console.log(this.props.name);
   }
   
   toggle() {

@@ -15,12 +15,9 @@ export default class LineChart extends Component {
 		  label: this.props.data.legend,
 		  fill: false,
 		  lineTension: 0.1,
-		  backgroundColor: 'rgba(75,192,192,0.4)',
 		  borderColor: 'rgba(75,192,192,1)',
 		  borderCapStyle: 'butt',
-		  borderDash: [],
-		  borderDashOffset: 0.0,
-		  borderJoinStyle: 'miter',
+		  borderJoinStyle: 'round',
 		  pointBorderColor: 'rgba(75,192,192,1)',
 		  pointBackgroundColor: '#fff',
 		  pointBorderWidth: 1,
@@ -38,23 +35,22 @@ export default class LineChart extends Component {
 	const options = {
         scales: {
           xAxes: [{
-            time: {
-              unit: 'date'
-            },
             gridLines: {
               display: false
             },
             ticks: {
-              maxTicksLimit: 7
+              maxTicksLimit: 11,
+			  maxRotation: 0
             }
           }],
           yAxes: [{
             ticks: {
               min: 0,
+			  max: 100,
               maxTicksLimit: 5
             },
             gridLines: {
-              color: "rgba(0, 0, 0, .125)",
+              color: "rgba(0, 0, 0, .05)",
             }
           }],
         },
