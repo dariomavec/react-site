@@ -5,13 +5,13 @@ import About from './About';
 import Projects from './Projects';
 import Footer from './Footer';
 import Spacer from './Spacer';
-import { Container, Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 export default class Me extends Component {
 	render() {
 		return(
 		<div className="App">		
-			<NavBar />
+			<NavBar links={[['About', '#about'], ['Projects', '#projects']]}/>
 			<Container>
 				<Spacer />
 				<Spacer />

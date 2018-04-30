@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
 
 
-export default class BarChart extends Component {
-	constructor(props) {
-		super(props);
-	}
-	
+export default class BarChart extends Component {	
 	render() {	
 	const data = {
 	  labels: this.props.data.x,

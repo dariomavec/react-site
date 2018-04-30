@@ -1,0 +1,44 @@
+import React, { Component } from 'react';
+
+import NavBar from './NavBar';
+import Spacer from './Spacer';
+import { Container, Row, Col } from 'reactstrap';
+
+import Gallery0 from '../gallery/0-blue-blot.png';
+import Gallery1 from '../gallery/1-watercolour.png';
+import Gallery2 from '../gallery/2-nebula.png';
+import Gallery3 from '../gallery/3-circles.png';
+
+export default class Me extends Component {
+	render() {
+		return(
+		<div className="Structure flex-container">		
+			<NavBar links={[['Home', '/']]}/>	
+			<Container>
+				<Spacer />
+				<Row>					
+					<Col className='col-12 col-md-6 structure-col'>
+					Shatter
+					<br/><img className='structure-img' src={Gallery0} alt="Gallery-0"></img>
+					</Col>
+					<Col className='col-12 col-md-6 structure-col'>
+					Watercolour
+					<br/><img className='structure-img' src={Gallery1} alt="Gallery-1"></img>
+					</Col>
+					</Row><Row>
+					<Col className='col-12 col-md-6 structure-col'>
+					Nebula
+					<br/><img className='structure-img' src={Gallery2} alt="Gallery-2"></img>
+					</Col>
+					<Col className='col-12 col-md-6 structure-col'>
+					Circles
+					<br/><img className='structure-img' src={Gallery3} alt="Gallery-3"></img>
+					</Col>
+				</Row>
+				<Spacer />
+				
+			</Container>
+		</div>
+	  )
+	}
+}

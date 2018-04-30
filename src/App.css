@@ -1,6 +1,23 @@
+.Structure {
+  margin-top: 40px;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.structure-col {
+  text-align: left;
+  padding: 2px 2px;
+}
+
+.structure-img {
+    width: 100%;
+    height: auto;
+}
+
 .App {
   text-align: center;
   margin-top: 40px;
+  background: url("background-blots-2.png") top no-repeat;
+  background-color: rgb(240, 234, 214);
 }
 
 a:link, a:visited {
@@ -27,7 +44,8 @@ a:hover, a:active {
 
 .App h3 {
   font-family: "Montserrat", sans-serif;
-  font-weight: 100;
+  font-size: 25 px;
+  font-weight: 500;
 }
 
 .App .i-hov {
@@ -39,7 +57,7 @@ a:hover, a:active {
 }
 
 .App .i-hov:hover {
-  color: #1dd1a1;
+  color: #F27935;
   display: inline-block;
 }
 
@@ -55,7 +73,6 @@ p {
 
 .Welcome {
   display: flex;
-  background-color: white;  
   align-items: center;
   justify-content: center;
   padding: 0px 0px;
@@ -63,7 +80,7 @@ p {
 
 .Welcome button {
   font-family: "Space Mono";
-    background-color: white;
+    background-color: rgba(255,255,255,0.6);
     color: black;
     border: 2px solid black;
     border-radius: 3px;
@@ -79,7 +96,7 @@ p {
 }
 
 .Welcome button:hover {
-    background-color: #1dd1a1;
+    background-color: #F27935;
     border: 2px solid;
     border-color: #000000;
     color: white;
@@ -107,10 +124,10 @@ p {
   align-items: center;
 }
 
-.welcome-intro strong {
+.App strong {
   font-weight: 900;
-  color: #1dd1a1;
-  #background-color: #1dd1a1;
+  color: #F27935;
+  #background-color: #F27935;
 }
 
 .welcome-box {
@@ -118,16 +135,15 @@ p {
 }
 
 .Projects {
-  background-color: #FFF;
-  
+  background-color: rgba(255, 255, 255, 0.7);  
 }
 
 .Separator {
-  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .About {
-  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .nav-name {
@@ -164,29 +180,28 @@ p {
 /* } */
 
 .Footer {
-  background: #f5f6fa;
+  background-color: rgba(255, 255, 255, 0.8);
   color: black;
 }
 
 .Footer .i-hov:hover {
-  color: #1dd1a1;
+  color: #F27935;
   display: inline-block;
 }
 
 .footer-pic {
-  width: 50vh;
+  width: 45vh;
   padding: 10px;
 }
 
 .block {
-  height: 250px;
   background-color: grey;
   color: white;
 } 
 
 .block h1 {
   font-family: "Montserrat";
-  font-size: 20px;
+  font-size: 20px; 
   font-weight: 900;
   text-align: center;
 }

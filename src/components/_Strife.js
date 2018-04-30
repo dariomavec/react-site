@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import ChartCard from './ChartCard';
 import PlayerDropdown from './PlayerDropdown';
+import NavBar from './NavBar';
 import _ from 'lodash';
 
 
@@ -23,7 +24,7 @@ function make_window(before, after) {
 
 function moving_average(numbers) {
   return _.chain(numbers)
-          .map(make_window(10, 0))
+          .map(make_window(20, 0))
           .map(average)
           .value();
 }
@@ -98,18 +99,19 @@ export default class Strife extends Component {
 
 	render() {
 		const { error, isLoaded, items, playerName, playerData, games, gameLoaded } = this.state;
-		var rankedData, rankedTitle, winRateData, gameData, gameGraph;
+		var rankedData, rankedTitle, winRateData, gameData, gameGraph, gameTitle;
 		if (error) {
 		  return <div>Error: {error.message}</div>;
 		} else if (!isLoaded) {
 		  return <div>Loading...</div>;
 		} else {
-		  const winRateData = {
+		  winRateData = {
 			  legend: "Win Rate",
 			  x: items.map(item => item.player_tidy),
 			  y: items.map(item => item.pct_win) 
 			  };
-			  
+		  
+		  // Ranked Games
 	      if (playerName === 'Players') {			
 			  rankedData = {
 				  legend: "Ranked Games",
@@ -132,57 +134,61 @@ export default class Strife extends Component {
 			  gameData = {
 				  legend: "Win Rate",
 				  x: games.map((item, index) => index),
-				  y: moving_average(games.map(item => 100 * item.n_wins))
+				  y: moving_average(games.map(item => 100 * item.n_wins)).map(item => Math.round(item * 100) / 100)
 				  };
 			  
 			  gameGraph = 'line';
+			  gameTitle = "Win Rate Over Last 20 Games (" + playerName + ")"
 		  }
 		  else {
 			  gameData = {};
 			  gameGraph = null;
+			  gameTitle = ""
 		  }
 			  			
 		  return (
-		  <Container className="flex-container">
-		  <Row>
-			  <Col>
-			  <h1>Strife</h1>
-			  </Col>
-		  </Row>
-		  <Row>
-			  <Col>
-				<PlayerDropdown 
-					players={items.map(item => item.player_tidy)} 
-					name={this.state.playerName}
-					onDropdownChange={this.handlePlayerChange}/>		
-			  </Col>
-		  </Row>
-		  <Row>
-			<Col>
-			 <br/>
-			</Col>
-		  </Row>
-		  <Row>
-			<Col className='col-12 col-md-6'>
-				<ChartCard title="Game Wins" data={gameData} type={gameGraph}/>
-			</Col>
-			<Col className='col-12 col-md-6'>
-				<ChartCard title="Player Win Rate" data={winRateData} type='bar'/>
-			</Col>
-		  </Row>
-		  <Row>
-			<Col>
-				<br/>
-			</Col>
-		  </Row>
-		  <Row>
-		  	<Col className='col-12 col-md-6'>
-				<ChartCard title={rankedTitle} data={rankedData} type='pie'/>
-			</Col>
-			<Col className='col-12 col-md-6'>
-			</Col>
-		  </Row>
+		  <div className="Structure flex-container">
+		  <NavBar links={[['Home', '/']]}/>	
+		  <Container>
+			  <Row>
+				  <Col>
+				  <h1>Strife</h1>
+				  </Col>
+			  </Row>
+			  <Row>
+				  <Col>
+					<PlayerDropdown 
+						players={items.map(item => item.player_tidy)} 
+						name={this.state.playerName}
+						onDropdownChange={this.handlePlayerChange}/>		
+				  </Col>
+				  <Col>
+				  Check out the REST API <a href="http://mavec.pythonanywhere.com/">here</a>.
+				  </Col>
+			  </Row>
+			  <Row>
+				<Col>
+				 <br/>
+				</Col>
+			  </Row>
+			  <Row>
+				<Col className='col-12 col-md-6'>
+					<ChartCard title={gameTitle} data={gameData} type={gameGraph}/><br/>
+				</Col>
+				<Col className='col-12 col-md-6'>
+					<ChartCard title="Player Win Rate" data={winRateData} type='bar'/><br/>
+				</Col>
+			  </Row>
+			  <Row>
+				<Col className='col-12 col-md-6'>
+					<ChartCard title={rankedTitle} data={rankedData} type='pie'/><br/>
+				</Col>
+				<Col className='col-12 col-md-6'>
+					<br/>
+				</Col>
+			  </Row>
 		  </Container>
+		  </div>
 		  );
 		}
 	  }

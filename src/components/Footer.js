@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import footerSplash from '../splash-footer.jpg';
+import footerSplash from '../splash-footer-stylish.png';
 import { Container, Row, Col } from 'reactstrap';
 
 export default class Footer extends Component {
@@ -8,14 +8,15 @@ export default class Footer extends Component {
 		<Container>	
 			<Row>
 				<Col>
-				<h1>Get in touch!</h1>
+				<br/>
 				</Col>
 			</Row>
-			<Row className="align-items-center Footer">
+			<Row className="align-items-center flex-container Footer">
 				<Col className="col-12 col-md-6">
 					<img src={footerSplash} className="footer-pic" alt="Footer"></img>
 				</Col>
-				<Col className="col-12 col-md-6">					
+				<Col className="col-12 col-md-6">
+					<h2><strong>Get in touch!</strong></h2>
 					<h3>
 					  <a href="https://linkedin.com/in/dario-mavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin i-hov"/></a>  
 					  <a href="https://github.com/dariomavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-github-square i-hov"/></a>  

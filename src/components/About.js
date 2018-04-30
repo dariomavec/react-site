@@ -8,7 +8,8 @@ export default class About extends Component {
 		<Container>
 			<Row>
 				<Col>
-				<h1>About Me!<br/></h1>
+				<br/>
+				<h1>ABOUT ME<br/></h1>
 				<h3>My name is <strong>Dario Mavec</strong> and data science is my passion. I have spent the last 5 years consulting with major <strong>governments, companies</strong> and <strong>organisations</strong> to discover <strong>interesting</strong> and <strong>useful</strong> insights from data.</h3>
 				</Col>
 			</Row>
@@ -29,7 +30,7 @@ export default class About extends Component {
 				<Col className="col-12 col-md-4">
 				<br/>
 				<h1> <i className="fas fa-signal" aria-hidden="true"/> </h1>
-				<p>Developed use cases leveraging a wide range of statistical techniques from supervised techniques (logistic, random forest, model matrix approaches) to unsupervised (k-means, hierarchical, PCA) and more!</p>
+				<p>Developed use cases leveraging a wide range of statistical techniques from supervised (logistic, random forest, model matrix approaches) to unsupervised (k-means, hierarchical, PCA) and more!</p>
 				</Col>
 			</Row>
 		</Container>

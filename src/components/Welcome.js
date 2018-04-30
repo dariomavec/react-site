@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import mainpic from '../splash-crop.jpg';
+import mainpic from '../splash-crop-transparent.png';
 import { Container, Row, Col } from 'reactstrap';
 
 export default class Welcome extends Component {
@@ -15,7 +15,7 @@ export default class Welcome extends Component {
 			<h2 className="welcome-intro">Hi! This is <strong>me</strong>.
 				<br/>	
 				<br/>	
-				A <strong>data scientist</strong>, <strong>explorer</strong> & <strong>highly evolved ape</strong> with 490,560 hours to burn.
+				A <strong>data scientist</strong>, <strong>explorer</strong> & <strong>somewhat evolved ape</strong> with 490,571 hours to burn.
 				<br/>
 				<br/>
 				<strong>Let's chat!</strong>

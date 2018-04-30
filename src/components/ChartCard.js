@@ -35,7 +35,7 @@ export default class ChartCard extends Component {
 			<CardBody>
 			  <CardTitle>{this.props.title}</CardTitle>
 				<Chart { ...props} />
-		  	</CardBody>
+		  	</CardBody>			
 		  </Card>
 		)
 	}
