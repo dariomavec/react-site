@@ -15,24 +15,18 @@ export default class Me extends Component {
 		<div className="Structure flex-container">		
 			<NavBar links={[['Home', '/']]}/>	
 			<Container>
-				<Spacer />
 				<Row>					
 					<Col className='col-12 col-md-6 structure-col'>
 					Shatter
-					<br/><img className='structure-img' src={Gallery0} alt="Gallery-0"></img>
+					<br/><img className='structure-img' src={Gallery0} alt="Gallery-0"></img><br/>
+					Nebula
+					<br/><img className='structure-img' src={Gallery2} alt="Gallery-2"></img><br/>
 					</Col>
 					<Col className='col-12 col-md-6 structure-col'>
 					Watercolour
-					<br/><img className='structure-img' src={Gallery1} alt="Gallery-1"></img>
-					</Col>
-					</Row><Row>
-					<Col className='col-12 col-md-6 structure-col'>
-					Nebula
-					<br/><img className='structure-img' src={Gallery2} alt="Gallery-2"></img>
-					</Col>
-					<Col className='col-12 col-md-6 structure-col'>
+					<br/><img className='structure-img' src={Gallery1} alt="Gallery-1"></img><br/>
 					Circles
-					<br/><img className='structure-img' src={Gallery3} alt="Gallery-3"></img>
+					<br/><img className='structure-img' src={Gallery3} alt="Gallery-3"></img><br/>
 					</Col>
 				</Row>
 				<Spacer />

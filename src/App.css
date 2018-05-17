@@ -9,8 +9,8 @@
 }
 
 .structure-img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .App {
@@ -67,7 +67,7 @@ p {
 }
 
 .section {
-  padding: 0px;
+  padding: 0px 15px;
   background-color: grey;
 }
 
@@ -184,13 +184,18 @@ p {
   color: black;
 }
 
+.Footer strong {
+	color: #F27935;
+}
+
 .Footer .i-hov:hover {
   color: #F27935;
   display: inline-block;
 }
 
 .footer-pic {
-  width: 45vh;
+  width: 75%;
+  height: auto;
   padding: 10px;
 }
 

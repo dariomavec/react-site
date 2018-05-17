@@ -52,7 +52,6 @@ export default class Strife extends Component {
 		});
 				
 		fetch("https://mavec.pythonanywhere.com/games.json/?player__player_name=" + playerName.toLowerCase())
-		//fetch("http://localhost:8080/games.json/?player__player_name=" + playerName.toLowerCase())
 		  .then(res => res.json())
 		  .then(
 			(result) => {
@@ -143,19 +142,14 @@ export default class Strife extends Component {
 		  else {
 			  gameData = {};
 			  gameGraph = null;
-			  gameTitle = ""
+			  gameTitle = "Select a player to see game data"
 		  }
 			  			
 		  return (
 		  <div className="Structure flex-container">
 		  <NavBar links={[['Home', '/']]}/>	
 		  <Container>
-			  <Row>
-				  <Col>
-				  <h1>Strife</h1>
-				  </Col>
-			  </Row>
-			  <Row>
+			  <Row className="align-items-center" style={{paddingBottom: '10px'}}>
 				  <Col>
 					<PlayerDropdown 
 						players={items.map(item => item.player_tidy)} 
@@ -165,11 +159,6 @@ export default class Strife extends Component {
 				  <Col>
 				  Check out the REST API <a href="http://mavec.pythonanywhere.com/">here</a>.
 				  </Col>
-			  </Row>
-			  <Row>
-				<Col>
-				 <br/>
-				</Col>
 			  </Row>
 			  <Row>
 				<Col className='col-12 col-md-6'>

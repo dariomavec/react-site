@@ -13,8 +13,6 @@ export default class Me extends Component {
 		<div className="App">		
 			<NavBar links={[['About', '#about'], ['Projects', '#projects']]}/>
 			<Container>
-				<Spacer />
-				<Spacer />
 				<Welcome />	
 				<Spacer id="about"/>
 				<Spacer/>

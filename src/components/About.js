@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 export default class About extends Component {
   render() {
     return (
       <div className="About section">
-		<Container>
 			<Row>
 				<Col>
 				<br/>
@@ -33,7 +32,7 @@ export default class About extends Component {
 				<p>Developed use cases leveraging a wide range of statistical techniques from supervised (logistic, random forest, model matrix approaches) to unsupervised (k-means, hierarchical, PCA) and more!</p>
 				</Col>
 			</Row>
-		</Container>
+		
       </div>
     );
   }

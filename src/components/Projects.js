@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Jumbotron, Button } from 'reactstrap';
+import { Row, Col, Jumbotron, Button } from 'reactstrap';
 
 export default class Projects extends Component {
   render() {
     return (
       <div className="Projects section">
-		<Container>
 			<Row>
 				<Col>
 					<br/>
@@ -46,7 +45,6 @@ export default class Projects extends Component {
 
 				</Col>
 			</Row>
-		</Container>
       </div>
     );
   }

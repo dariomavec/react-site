@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import footerSplash from '../splash-footer-stylish.png';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 export default class Footer extends Component {
   render() {
     return (
-		<Container>	
-			<Row>
-				<Col>
-				<br/>
-				</Col>
-			</Row>
-			<Row className="align-items-center flex-container Footer">
+		<div className="section Footer">
+			<br/>
+			<Row className="align-items-center flex-container">
 				<Col className="col-12 col-md-6">
 					<img src={footerSplash} className="footer-pic" alt="Footer"></img>
 				</Col>
 				<Col className="col-12 col-md-6">
-					<h2><strong>Get in touch!</strong></h2>
+					<h2>It's cold out there.<br/><strong>Get in touch!</strong></h2>
 					<h3>
 					  <a href="https://linkedin.com/in/dario-mavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin i-hov"/></a>  
 					  <a href="https://github.com/dariomavec" target="_blank" rel="noopener noreferrer"><i className="fab fa-github-square i-hov"/></a>  
@@ -29,7 +25,7 @@ export default class Footer extends Component {
 					</p>
 				</Col>
 			</Row>
-		</Container>
+		</div>
     );
   }
 }

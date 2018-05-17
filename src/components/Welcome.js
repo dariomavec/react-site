@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import mainpic from '../splash-crop-transparent.png';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 export default class Welcome extends Component {
   render() {
     return (
-	<div className="Welcome">
-     <Container className="flex-container">
+	<div className="Welcome" style={{marginTop: '50px'}}>
 		<Row className="align-items-center">
 			<Col className="col-12 col-md-5">
 				<img src={mainpic} className="main-pic" alt="Main Splash"></img>
@@ -28,7 +27,6 @@ export default class Welcome extends Component {
 				</h2>
 			</Col>
 		</Row>
-	</Container>
 	</div>
     );
   }
