@@ -38,7 +38,7 @@ export default class Strife extends Component {
 		super(props);
 		this.state = {
 		  error: null,
-		  playerLoaded: false,
+		  playerLoading: true,
 		  player: {name: 'Players'},
 		  gameLoaded: false,
 		  gameLoading: false,
@@ -105,6 +105,10 @@ export default class Strife extends Component {
 	}
 	
 	componentDidMount() {
+		this.setState({
+			playerLoading: true
+		});
+		
 		fetch(this.baseURL + "players.json")
 		  .then(res => res.json())
 		  .then(
@@ -132,7 +136,7 @@ export default class Strife extends Component {
 			  
 			  this.setState({
 				player,
-				playerLoaded: true
+				playerLoading: false
 			  });
 			},
 			// Note: it's important to handle errors here
@@ -140,7 +144,7 @@ export default class Strife extends Component {
 			// exceptions from actual bugs in components.
 			(error) => {
 			  this.setState({
-				playerLoaded: false,
+				playerLoading: false,
 				error
 			  });
 			}
@@ -149,11 +153,21 @@ export default class Strife extends Component {
 	  }
 
 	render() {
-		const { error, playerLoaded, player, gameLoading, gameLoaded, game } = this.state;
+		const { error, playerLoading, player, gameLoading, gameLoaded, game } = this.state;
 		let rankedTitle, gameData, gameGraph, gameTitle;
 		if (error) {
 		  return <div>Error: {error.message}</div>;
-		} 
+		}
+		else if (playerLoading) {
+		  return (
+		  <div className="Structure">
+			<NavBar links={[['Home', '/']]}/>	
+			<Container>
+			  <LoadingSpinner/>
+			</Container>
+		  </div>
+		  );
+		}
 	    else {		  
 		
 		// Ranked Games
@@ -170,22 +184,9 @@ export default class Strife extends Component {
 		  gameGraph = 'line';
 		  gameTitle = "Monthly Stats (" + player.name + ")"
 		}
-		else if (!playerLoaded) {
-		  return (
-		  <div className="Structure">
-			<NavBar links={[['Home', '/']]}/>	
-			<Container>
-			  <LoadingSpinner/>
-			</Container>
-		  </div>
-		  );
-		}
 		else {
-		  gameData = {};
-		  gameGraph = null;
 		  gameTitle = "Select a player to see game data"
 		}
-		console.log(player)
 			  			
 		return (
 		<div className="Structure">
@@ -193,7 +194,7 @@ export default class Strife extends Component {
 		<Container>
 		  <Row className="align-items-center" style={{paddingBottom: '10px'}}>
 			  <Col>
-			    {!playerLoaded ? '' :
+			    {playerLoading ? '' :
 				<PlayerDropdown 
 					players={player.allData.map(item => item.player_name)} 
 					name={player.name}
@@ -204,25 +205,13 @@ export default class Strife extends Component {
 			  </Col>
 		  </Row>
 		  <Row>
-			<Col className='col-12 col-md-6'>
-				{gameLoading ? <LoadingSpinner/> : <ChartCard title={gameTitle} data={gameData} type={gameGraph}/>}
-				<br/>
-			</Col>
-			<Col className='col-12 col-md-6'>
-				{!playerLoaded ? <LoadingSpinner/> : <ChartCard title="Player Win Rate" data={player.winRate} type='bar'/>}
-				<br/>
-			</Col>
+			<ChartCard title={gameTitle} data={gameData} type={gameGraph} loading={gameLoading}/>
+			<ChartCard title="Player Win Rate" data={player.winRate} type='bar' loading={playerLoading}/>
 		  </Row>
 		  <Row>
-			<Col className='col-12 col-md-6'>
-				{!playerLoaded ? <LoadingSpinner/> : <ChartCard title={rankedTitle} data={player.rankedGames} type='pie'/>}
-				<br/>
-			</Col>
-			<Col className='col-12 col-md-6'>
-				{!playerLoaded ? <LoadingSpinner/> : <ChartCard title="Number of Games" data={player.numberGames} type='bar'/>}
-				<br/>
-			</Col>
-		  </Row>
+			<ChartCard title={rankedTitle} data={player.rankedGames} type='pie' loading={playerLoading}/>
+			<ChartCard title="Number of Games" data={player.numberGames} type='bar' loading={playerLoading}/>
+		  </Row>  
 		</Container>
 		</div>
 		);
@@ -230,3 +219,5 @@ export default class Strife extends Component {
 	  }
 	}
 ;
+
+

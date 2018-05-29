@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, CardBody } from 'reactstrap';
+import { Col, Card, CardTitle, CardBody } from 'reactstrap';
 import LineChart from './LineChart';
 import BarChart from './BarChart';
 import PieChart from './PieChart';
 import NullChart from './NullChart';
+import LoadingSpinner from './LoadingSpinner';
 
 
 export default class ChartCard extends Component {	
@@ -13,11 +14,12 @@ export default class ChartCard extends Component {
 		this.data = {};
 		this.options = {};
 		this.type = '';
+		this.loading = true;
 	}
 	
 	 render() {
 		const { type, ...props } = this.props
-
+		
 		let Chart = null
 		switch (type) {
 		  case 'line': Chart = LineChart
@@ -31,12 +33,17 @@ export default class ChartCard extends Component {
 		}
 
 		return (
+		<Col className='col-12 col-md-6'>
 		  <Card>
-			<CardBody>
-			  <CardTitle>{this.props.title}</CardTitle>
+			  {this.props.loading ? 
+			   <LoadingSpinner/> :
+			   <CardBody>
+				<CardTitle>{this.props.title}</CardTitle>
 				<Chart { ...props} />
-		  	</CardBody>			
+			   </CardBody>}	
 		  </Card>
+		  <br/>
+		</Col>
 		)
 	}
 }
