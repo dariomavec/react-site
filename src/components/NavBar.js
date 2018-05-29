@@ -36,7 +36,7 @@ export default class NavBar extends React.Component {
             </Nav>
           </Collapse>
         </Navbar>
-		<p><br/><br/></p>
+		<p><br/><br/><br/><br/></p>
       </div>
     );
   }

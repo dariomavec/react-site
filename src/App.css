@@ -1,6 +1,6 @@
 .Structure {
-  margin-top: 40px;
   background-color: rgba(0, 0, 0, 0.075);
+  height: 100vh;
 }
 
 .structure-col {

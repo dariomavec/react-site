@@ -3,61 +3,92 @@ import { Container, Row, Col } from 'reactstrap';
 import ChartCard from './ChartCard';
 import PlayerDropdown from './PlayerDropdown';
 import NavBar from './NavBar';
-import _ from 'lodash';
+import LoadingSpinner from './LoadingSpinner';
+//import _ from 'lodash';
 
-
-function sum(numbers) {
-  return _.reduce(numbers, (a, b) => a + b, 0);
+function roundWeek(d) {
+  let dCopy = new Date(d);
+  let monthDay = dCopy.getDate();
+  let diff = monthDay - dCopy.getDay();
+  dCopy.setDate(diff)
+  return new Date(dCopy.getFullYear(), 
+				  dCopy.getMonth(),
+				  dCopy.getDate());
 }
 
-function average(numbers) {
-  return sum(numbers) / (numbers.length || 1);
+function roundMonth(d) {
+  let dCopy = new Date(d);
+  
+  return new Date(dCopy.getFullYear(), 
+				  dCopy.getMonth(),
+				  1);
 }
 
-function make_window(before, after) {
-  return function (_number, index, array) {
-    const start = Math.max(0, index - before);
-    const end   = Math.min(array.length, index + after + 1);
-    return _.slice(array, start, end);
-  }
+function sumByGroup(groupingData, groupFeature, sumFunction) {
+	let groupedData = groupingData.reduce((result, item) => {
+		(result[item[groupFeature]]) ? result[item[groupFeature]] += sumFunction(item) : result[item[groupFeature]] = sumFunction(item);
+		return result
+		}, []);
+	console.log(groupedData);
+	return Object.keys(groupedData).map(i => groupedData[i])	
 }
-
-function moving_average(numbers) {
-  return _.chain(numbers)
-          .map(make_window(20, 0))
-          .map(average)
-          .value();
-}
-
 
 export default class Strife extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 		  error: null,
-		  isLoaded: false,
-		  items: [],
-		  playerName: 'Players',
-		  playerData: [],
-		  games: [],
-		  gameLoaded: false
+		  playerLoaded: false,
+		  player: {name: 'Players'},
+		  gameLoaded: false,
+		  gameLoading: false,
+		  game: {}
 		};
 		this.handlePlayerChange = this.handlePlayerChange.bind(this);
+		this.baseURL = "https://mavec.pythonanywhere.com/";
+		//this.baseURL = "http://localhost:8080/";
 	}
 	
-	handlePlayerChange(playerName) {
+	handlePlayerChange(playerName) {		
+		let player = this.state.player;
+		
+		player.name = playerName;
+		player.filteredData = this.state.player.allData.filter(item => item.player_name === playerName);
+		player.rankedGames = {
+			legend: "Ranked Games",
+			x: ['Ranked', 'Unranked'],
+			y: [player.filteredData[0].n_ranked, player.filteredData[0].n_unranked]
+		};
+		
 		this.setState({
-		  playerName: playerName,
-		  playerData: this.state.items.filter(item => item.player_tidy === playerName)
+			player,
+			gameLoading: true
 		});
 				
-		fetch("https://mavec.pythonanywhere.com/games.json/?player__player_name=" + playerName.toLowerCase())
+		fetch(this.baseURL + "games.json/?player__player_name=" + playerName.toLowerCase())
 		  .then(res => res.json())
 		  .then(
 			(result) => {
+			  let game = {}	
+			
+			  game.allData = result.map(i => i.game);
+			  // Parse dates
+			  game.allData.forEach(obj => obj.timestamp = Date.parse(obj.timestamp));
+			  game.allData.forEach(obj => obj.weekstamp = Date.parse(roundWeek(obj.timestamp)));
+			  game.allData.forEach(obj => obj.monthstamp = Date.parse(roundMonth(obj.timestamp)));
+			  game.allData = game.allData.sort((a, b) => a.timestamp - b.timestamp);
+			  
+			  // Monthly data aggregation
+			  game.monthlyData = {}
+			  game.monthlyData.monthstamp = game.allData.map(i => i.monthstamp).filter((v, i, a) => a.indexOf(v) === i);
+			  game.monthlyData.n_wins = sumByGroup(game.allData, 'monthstamp', (item) => item['game_outcome']);
+			  game.monthlyData.n_games = sumByGroup(game.allData, 'monthstamp', () => 1);
+			  game.monthlyData.pct_win = game.monthlyData.n_games.map((item, idx) => Math.round(100 * game.monthlyData.n_wins[idx] / game.monthlyData.n_games[idx]));
+			  
 			  this.setState({
 				gameLoaded: true,
-				games: result
+				gameLoading: false,
+				game
 			  });
 			},
 			// Note: it's important to handle errors here
@@ -65,7 +96,8 @@ export default class Strife extends Component {
 			// exceptions from actual bugs in components.
 			(error) => {
 			  this.setState({
-				gameLoaded: true,
+				gameLoaded: false,
+				gameLoading: false,
 				error
 			  });
 			}
@@ -73,14 +105,34 @@ export default class Strife extends Component {
 	}
 	
 	componentDidMount() {
-		fetch("https://mavec.pythonanywhere.com/players.json")
-		//fetch("http://localhost:8080/players.json")
+		fetch(this.baseURL + "players.json")
 		  .then(res => res.json())
 		  .then(
 			(result) => {
+			  result.forEach(obj => obj.player_name = obj.player_name[0].toUpperCase() + obj.player_name.slice(1))
+			  
+			  let player = this.state.player;
+			  
+			  player.allData = result;
+			  player.winRate = {
+				  legend: "Win Rate",
+				  x: result.map(item => item.player_name),
+				  y: result.map(item => item.pct_win) 
+				  };
+			  player.numberGames = {
+				  legend: "# Games",
+				  x: result.map(item => item.player_name),
+				  y: result.map(item => item.n_games) 
+				  };
+			  player.rankedGames = {
+				  legend: "Ranked Games",
+				  x: ['Ranked', 'Unranked'],
+				  y: [result.map(item => item.n_ranked).reduce((a, b) => a + b, 0), result.map(item => item.n_unranked).reduce((a, b) => a + b, 0)]
+				  };					  
+			  
 			  this.setState({
-				isLoaded: true,
-				items: result
+				player,
+				playerLoaded: true
 			  });
 			},
 			// Note: it's important to handle errors here
@@ -88,7 +140,7 @@ export default class Strife extends Component {
 			// exceptions from actual bugs in components.
 			(error) => {
 			  this.setState({
-				isLoaded: true,
+				playerLoaded: false,
 				error
 			  });
 			}
@@ -97,88 +149,83 @@ export default class Strife extends Component {
 	  }
 
 	render() {
-		const { error, isLoaded, items, playerName, playerData, games, gameLoaded } = this.state;
-		var rankedData, rankedTitle, winRateData, gameData, gameGraph, gameTitle;
+		const { error, playerLoaded, player, gameLoading, gameLoaded, game } = this.state;
+		let rankedTitle, gameData, gameGraph, gameTitle;
 		if (error) {
 		  return <div>Error: {error.message}</div>;
-		} else if (!isLoaded) {
-		  return <div>Loading...</div>;
-		} else {
-		  winRateData = {
+		} 
+	    else {		  
+		
+		// Ranked Games
+		this.state.player.name === 'Players' ? rankedTitle = "Ranked Games (Overall)" : rankedTitle = "Ranked Games (" + player.name + ")";
+
+		// Game data
+		if (gameLoaded) {
+		  gameData = {
 			  legend: "Win Rate",
-			  x: items.map(item => item.player_tidy),
-			  y: items.map(item => item.pct_win) 
-			  };
-		  
-		  // Ranked Games
-	      if (playerName === 'Players') {			
-			  rankedData = {
-				  legend: "Ranked Games",
-				  x: ['Ranked', 'Unranked'],
-				  y: [items.map(item => item.n_ranked).reduce((a, b) => a + b, 0), items.map(item => item.n_unranked).reduce((a, b) => a + b, 0)]
-				  }; 
-			  rankedTitle = "Ranked Games (Overall)";
-		  }
-		  else {
-			  rankedData = {
-				  legend: "Ranked Games",
-				  x: ['Ranked', 'Unranked'],
-				  y: [playerData[0].n_ranked, playerData[0].n_unranked]
-				  };
-			  rankedTitle = "Ranked Games (" + playerName + ")"
-		  }
-		  
-		  // Game data
-		  if (gameLoaded) {
-			  gameData = {
-				  legend: "Win Rate",
-				  x: games.map((item, index) => index),
-				  y: moving_average(games.map(item => 100 * item.n_wins)).map(item => Math.round(item * 100) / 100)
-				  };
-			  
-			  gameGraph = 'line';
-			  gameTitle = "Win Rate Over Last 20 Games (" + playerName + ")"
-		  }
-		  else {
-			  gameData = {};
-			  gameGraph = null;
-			  gameTitle = "Select a player to see game data"
-		  }
-			  			
+			  x: game.monthlyData.monthstamp,
+			  y: game.monthlyData.pct_win,
+			  z: game.monthlyData.n_games
+		  };
+		  gameGraph = 'line';
+		  gameTitle = "Monthly Stats (" + player.name + ")"
+		}
+		else if (!playerLoaded) {
 		  return (
-		  <div className="Structure flex-container">
-		  <NavBar links={[['Home', '/']]}/>	
-		  <Container>
-			  <Row className="align-items-center" style={{paddingBottom: '10px'}}>
-				  <Col>
-					<PlayerDropdown 
-						players={items.map(item => item.player_tidy)} 
-						name={this.state.playerName}
-						onDropdownChange={this.handlePlayerChange}/>		
-				  </Col>
-				  <Col>
-				  Check out the REST API <a href="http://mavec.pythonanywhere.com/">here</a>.
-				  </Col>
-			  </Row>
-			  <Row>
-				<Col className='col-12 col-md-6'>
-					<ChartCard title={gameTitle} data={gameData} type={gameGraph}/><br/>
-				</Col>
-				<Col className='col-12 col-md-6'>
-					<ChartCard title="Player Win Rate" data={winRateData} type='bar'/><br/>
-				</Col>
-			  </Row>
-			  <Row>
-				<Col className='col-12 col-md-6'>
-					<ChartCard title={rankedTitle} data={rankedData} type='pie'/><br/>
-				</Col>
-				<Col className='col-12 col-md-6'>
-					<br/>
-				</Col>
-			  </Row>
-		  </Container>
+		  <div className="Structure">
+			<NavBar links={[['Home', '/']]}/>	
+			<Container>
+			  <LoadingSpinner/>
+			</Container>
 		  </div>
 		  );
+		}
+		else {
+		  gameData = {};
+		  gameGraph = null;
+		  gameTitle = "Select a player to see game data"
+		}
+		console.log(player)
+			  			
+		return (
+		<div className="Structure">
+		<NavBar links={[['Home', '/']]}/>	
+		<Container>
+		  <Row className="align-items-center" style={{paddingBottom: '10px'}}>
+			  <Col>
+			    {!playerLoaded ? '' :
+				<PlayerDropdown 
+					players={player.allData.map(item => item.player_name)} 
+					name={player.name}
+					onDropdownChange={this.handlePlayerChange}/>}	
+			  </Col>
+			  <Col>
+			  Check out the REST API <a href="http://mavec.pythonanywhere.com/">here</a>.
+			  </Col>
+		  </Row>
+		  <Row>
+			<Col className='col-12 col-md-6'>
+				{gameLoading ? <LoadingSpinner/> : <ChartCard title={gameTitle} data={gameData} type={gameGraph}/>}
+				<br/>
+			</Col>
+			<Col className='col-12 col-md-6'>
+				{!playerLoaded ? <LoadingSpinner/> : <ChartCard title="Player Win Rate" data={player.winRate} type='bar'/>}
+				<br/>
+			</Col>
+		  </Row>
+		  <Row>
+			<Col className='col-12 col-md-6'>
+				{!playerLoaded ? <LoadingSpinner/> : <ChartCard title={rankedTitle} data={player.rankedGames} type='pie'/>}
+				<br/>
+			</Col>
+			<Col className='col-12 col-md-6'>
+				{!playerLoaded ? <LoadingSpinner/> : <ChartCard title="Number of Games" data={player.numberGames} type='bar'/>}
+				<br/>
+			</Col>
+		  </Row>
+		</Container>
+		</div>
+		);
 		}
 	  }
 	}

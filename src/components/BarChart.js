@@ -21,10 +21,6 @@ export default class BarChart extends Component {
           xAxes: [{
             gridLines: {
               display: false
-            },
-            ticks: {
-              min: 0,
-			  max: 100,
             }
           }],
           yAxes: [{
