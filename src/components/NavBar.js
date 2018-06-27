@@ -11,7 +11,9 @@ import {
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
+	
+	// Takes a list of links values and turns them into NavItems
+	this.links = [];
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false

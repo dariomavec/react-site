@@ -16,7 +16,7 @@
 .App {
   text-align: center;
   margin-top: 40px;
-  background: url("background-blots-2.png") top no-repeat;
+  background: url("background-blots.png") top no-repeat;
   background-color: rgb(240, 234, 214);
 }
 
@@ -135,7 +135,7 @@ p {
 }
 
 .Projects {
-  background-color: rgba(255, 255, 255, 0.7);  
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .Separator {
@@ -202,11 +202,11 @@ p {
 .block {
   background-color: grey;
   color: white;
-} 
+}
 
 .block h1 {
   font-family: "Montserrat";
-  font-size: 20px; 
+  font-size: 20px;
   font-weight: 900;
   text-align: center;
 }

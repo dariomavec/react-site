@@ -73,9 +73,11 @@ export default class Strife extends Component {
 			
 			  game.allData = result.map(i => i.game);
 			  // Parse dates
-			  game.allData.forEach(obj => obj.timestamp = Date.parse(obj.timestamp));
-			  game.allData.forEach(obj => obj.weekstamp = Date.parse(roundWeek(obj.timestamp)));
-			  game.allData.forEach(obj => obj.monthstamp = Date.parse(roundMonth(obj.timestamp)));
+			  game.allData.forEach(obj => {
+				obj.timestamp = Date.parse(obj.timestamp);
+				obj.weekstamp = Date.parse(roundWeek(obj.timestamp)));
+				obj.monthstamp = Date.parse(roundMonth(obj.timestamp)));
+			  });
 			  game.allData = game.allData.sort((a, b) => a.timestamp - b.timestamp);
 			  
 			  // Monthly data aggregation
