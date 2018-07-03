@@ -11,15 +11,15 @@ function roundWeek(d) {
   let monthDay = dCopy.getDate();
   let diff = monthDay - dCopy.getDay();
   dCopy.setDate(diff)
-  return new Date(dCopy.getFullYear(), 
+  return new Date(dCopy.getFullYear(),
 				  dCopy.getMonth(),
 				  dCopy.getDate());
 }
 
 function roundMonth(d) {
   let dCopy = new Date(d);
-  
-  return new Date(dCopy.getFullYear(), 
+
+  return new Date(dCopy.getFullYear(),
 				  dCopy.getMonth(),
 				  1);
 }
@@ -29,8 +29,8 @@ function sumByGroup(groupingData, groupFeature, sumFunction) {
 		(result[item[groupFeature]]) ? result[item[groupFeature]] += sumFunction(item) : result[item[groupFeature]] = sumFunction(item);
 		return result
 		}, []);
-	console.log(groupedData);
-	return Object.keys(groupedData).map(i => groupedData[i])	
+	// console.log(groupedData);
+	return Object.keys(groupedData).map(i => groupedData[i])
 }
 
 export default class Strife extends Component {
@@ -46,12 +46,12 @@ export default class Strife extends Component {
 		};
 		this.handlePlayerChange = this.handlePlayerChange.bind(this);
 		this.baseURL = "https://mavec.pythonanywhere.com/";
-		//this.baseURL = "http://localhost:8080/";
+		// this.baseURL = "http://localhost:8080/";
 	}
-	
-	handlePlayerChange(playerName) {		
+
+	handlePlayerChange(playerName) {
 		let player = this.state.player;
-		
+
 		player.name = playerName;
 		player.filteredData = this.state.player.allData.filter(item => item.player_name === playerName);
 		player.rankedGames = {
@@ -59,34 +59,34 @@ export default class Strife extends Component {
 			x: ['Ranked', 'Unranked'],
 			y: [player.filteredData[0].n_ranked, player.filteredData[0].n_unranked]
 		};
-		
+
 		this.setState({
 			player,
 			gameLoading: true
 		});
-				
+
 		fetch(this.baseURL + "games.json/?player__player_name=" + playerName.toLowerCase())
 		  .then(res => res.json())
 		  .then(
 			(result) => {
-			  let game = {}	
-			
-			  game.allData = result.map(i => i.game);
+			  let game = {}
+
 			  // Parse dates
+        game.allData = result;
 			  game.allData.forEach(obj => {
-				obj.timestamp = Date.parse(obj.timestamp);
-				obj.weekstamp = Date.parse(roundWeek(obj.timestamp)));
-				obj.monthstamp = Date.parse(roundMonth(obj.timestamp)));
+				obj.ts = Date.parse(obj.ts);
+				obj.weekstamp = Date.parse(roundWeek(obj.ts));
+				obj.monthstamp = Date.parse(roundMonth(obj.ts));
 			  });
-			  game.allData = game.allData.sort((a, b) => a.timestamp - b.timestamp);
-			  
+			  game.allData = game.allData.sort((a, b) => a.ts - b.ts);
+
 			  // Monthly data aggregation
 			  game.monthlyData = {}
 			  game.monthlyData.monthstamp = game.allData.map(i => i.monthstamp).filter((v, i, a) => a.indexOf(v) === i);
 			  game.monthlyData.n_wins = sumByGroup(game.allData, 'monthstamp', (item) => item['game_outcome']);
 			  game.monthlyData.n_games = sumByGroup(game.allData, 'monthstamp', () => 1);
 			  game.monthlyData.pct_win = game.monthlyData.n_games.map((item, idx) => Math.round(100 * game.monthlyData.n_wins[idx] / game.monthlyData.n_games[idx]));
-			  
+
 			  this.setState({
 				gameLoaded: true,
 				gameLoading: false,
@@ -105,37 +105,37 @@ export default class Strife extends Component {
 			}
 		  )
 	}
-	
+
 	componentDidMount() {
 		this.setState({
 			playerLoading: true
 		});
-		
+
 		fetch(this.baseURL + "players.json")
 		  .then(res => res.json())
 		  .then(
 			(result) => {
 			  result.forEach(obj => obj.player_name = obj.player_name[0].toUpperCase() + obj.player_name.slice(1))
-			  
+
 			  let player = this.state.player;
-			  
+
 			  player.allData = result;
 			  player.winRate = {
 				  legend: "Win Rate",
 				  x: result.map(item => item.player_name),
-				  y: result.map(item => item.pct_win) 
+				  y: result.map(item => item.pct_win)
 				  };
 			  player.numberGames = {
 				  legend: "# Games",
 				  x: result.map(item => item.player_name),
-				  y: result.map(item => item.n_games) 
+				  y: result.map(item => item.n_games)
 				  };
 			  player.rankedGames = {
 				  legend: "Ranked Games",
 				  x: ['Ranked', 'Unranked'],
 				  y: [result.map(item => item.n_ranked).reduce((a, b) => a + b, 0), result.map(item => item.n_unranked).reduce((a, b) => a + b, 0)]
-				  };					  
-			  
+				  };
+
 			  this.setState({
 				player,
 				playerLoading: false
@@ -151,7 +151,7 @@ export default class Strife extends Component {
 			  });
 			}
 		  )
- 
+
 	  }
 
 	render() {
@@ -163,15 +163,15 @@ export default class Strife extends Component {
 		else if (playerLoading) {
 		  return (
 		  <div className="Structure">
-			<NavBar links={[['Home', '/']]}/>	
+			<NavBar links={[['Home', '/']]}/>
 			<Container>
 			  <LoadingSpinner/>
 			</Container>
 		  </div>
 		  );
 		}
-	    else {		  
-		
+	    else {
+
 		// Ranked Games
 		this.state.player.name === 'Players' ? rankedTitle = "Ranked Games (Overall)" : rankedTitle = "Ranked Games (" + player.name + ")";
 
@@ -189,18 +189,18 @@ export default class Strife extends Component {
 		else {
 		  gameTitle = "Select a player to see game data"
 		}
-			  			
+
 		return (
 		<div className="Structure">
-		<NavBar links={[['Home', '/']]}/>	
+		<NavBar links={[['Home', '/']]}/>
 		<Container>
 		  <Row className="align-items-center" style={{paddingBottom: '10px'}}>
 			  <Col>
 			    {playerLoading ? '' :
-				<PlayerDropdown 
-					players={player.allData.map(item => item.player_name)} 
+				<PlayerDropdown
+					players={player.allData.map(item => item.player_name)}
 					name={player.name}
-					onDropdownChange={this.handlePlayerChange}/>}	
+					onDropdownChange={this.handlePlayerChange}/>}
 			  </Col>
 			  <Col>
 			  Check out the REST API <a href="http://mavec.pythonanywhere.com/">here</a>.
@@ -213,7 +213,7 @@ export default class Strife extends Component {
 		  <Row>
 			<ChartCard title={rankedTitle} data={player.rankedGames} type='pie' loading={playerLoading}/>
 			<ChartCard title="Number of Games" data={player.numberGames} type='bar' loading={playerLoading}/>
-		  </Row>  
+		  </Row>
 		</Container>
 		</div>
 		);
@@ -221,5 +221,3 @@ export default class Strife extends Component {
 	  }
 	}
 ;
-
-
