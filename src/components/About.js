@@ -13,13 +13,13 @@ export default class About extends Component {
 				</Col>
 			</Row>
 			<Row>
-				<br/>
+			<br/>
 			</Row>
 			<Row>
 				<Col className="col-12 col-md-4">
 				<br/>
 				<h1> <i className="fas fa-industry" aria-hidden="true"/> </h1>
-				<p>Deep experience working for top-tier consulting firm Accenture, in challenging projects across the telecommunications, government, resources and entertainment industries.</p>
+				<p>Deep experience working for top-tier consulting firm Accenture, in challenging projects across telecommunications, government, resources and entertainment industries.</p>
 				</Col>
 				<Col className="col-12 col-md-4">
 				<br/>
@@ -32,7 +32,6 @@ export default class About extends Component {
 				<p>Developed use cases leveraging a wide range of statistical techniques from supervised (logistic, random forest, model matrix approaches) to unsupervised (k-means, hierarchical, PCA) and more!</p>
 				</Col>
 			</Row>
-		
       </div>
     );
   }
