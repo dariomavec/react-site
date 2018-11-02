@@ -158,7 +158,7 @@ export default class Strife extends Component {
 		const { error, playerLoading, player, gameLoading, gameLoaded, game } = this.state;
 		let rankedTitle, gameData, gameGraph, gameTitle;
 		if (error) {
-		  return <div>Error: {error.message}</div>;
+		  return <div>Error: {error.message}<br/>Please try refreshing the page.</div>;
 		}
 		else if (playerLoading) {
 		  return (
