@@ -12,7 +12,7 @@
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.6.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1",
+    "react-scripts": "^3.1.1",
     "reactstrap": "^5.0.0-beta.2"
   },
   "scripts": {
@@ -23,5 +23,17 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "http://mavec.me"
+  "homepage": "http://mavec.me",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
