@@ -9,11 +9,10 @@ import Gallery1 from '../gallery/1-watercolour.png';
 import Gallery2 from '../gallery/2-nebula.png';
 import Gallery3 from '../gallery/3-circles.png';
 
-let gallery = {
+/* let gallery = {
 	imgs: [Gallery0, Gallery1, Gallery2, Gallery3],
 	labs: ['Shatter', 'Watercolour', 'Nebula', 'Circles']
-};
-
+}; */
 
 export default class Me extends Component {
 	render() {
